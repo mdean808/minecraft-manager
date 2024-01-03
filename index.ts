@@ -36,9 +36,18 @@ const stopEc2Instance = async () => {
 
 // start function
 (async () => {
-  // bun index.ts ~/server run.sh
-  sendDiscordMessage("Server Start", "Starting the server...", 1479403);
-  const server = spawn(process.argv[3], { cwd: process.argv[2] });
+  // bun index.ts SERVERS_DIR
+  const res = await fetch(
+    "https://getactiverminecraftserver-ykuqto64rq-uc.a.run.app",
+  );
+  const { version, script, id } = await res.json();
+
+  sendDiscordMessage(
+    "Server Start",
+    `Starting ${id}@${version} server...`,
+    1479403,
+  );
+  const server = spawn(`${process.argv[2]}/${id}/${script}`);
 
   setInterval(async () => {
     const { players, online } = await fetchServerInfo({
