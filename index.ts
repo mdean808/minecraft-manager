@@ -42,7 +42,7 @@ const stopEc2Instance = async () => {
   );
   const { version, script, id } = await res.json();
 
-  sendDiscordMessage(
+  await sendDiscordMessage(
     "Server Start",
     `Starting ${id}@${version} server...`,
     1479403,
@@ -58,7 +58,7 @@ const stopEc2Instance = async () => {
     });
     if (online) {
       if (players === 0) {
-        sendDiscordMessage(
+        await sendDiscordMessage(
           "Server Stop",
           "Stopping server due to inactivity.",
           1479403,
@@ -75,12 +75,12 @@ const stopEc2Instance = async () => {
     }
   }, 900000); // every 15 minutes
 
-  server.stderr.on("data", (data: Buffer) => {
-    sendDiscordMessage("Server Error", data.toString(), 14811136);
+  server.stderr.on("data", async (data: Buffer) => {
+    await sendDiscordMessage("Server Error", data.toString(), 14811136);
   });
 
-  server.stdout.on("data", (data: Buffer) => {
-    sendDiscordMessage("Server Log", data.toString(), 1877258);
+  server.stdout.on("data", async (data: Buffer) => {
+    await sendDiscordMessage("Server Log", data.toString(), 1877258);
   });
 })();
 
