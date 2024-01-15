@@ -65,8 +65,8 @@ const stopEc2Instance = async () => {
         );
         //stop the server
         server.stdin.write("stop\r");
-        // delay 60 seconds so the process stops correctly
-        await delay(60000);
+        // delay 2 minutes so the process stops correctly
+        await delay(120000);
         server.kill("SIGINT");
         await delay(2000);
         await sendDiscordMessage("Server Stop", "Server stopped.", 1479403);
