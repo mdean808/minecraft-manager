@@ -10,20 +10,23 @@ const sendDiscordMessage = async (
   description: string,
   color: number,
 ) => {
-  await fetch(process.env.DISCORD_WEBHOOK || "", {
-    method: "post",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      content: null,
-      embeds: [
-        {
-          title,
-          description,
-          color,
-        },
-      ],
-    }),
-  });
+  // make sure we have an webhook
+  if (process.env.DISCORD_WEBHOOK) {
+    await fetch(process.env.DISCORD_WEBHOOK || "", {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        content: null,
+        embeds: [
+          {
+            title,
+            description,
+            color,
+          },
+        ],
+      }),
+    });
+  }
 };
 
 const stopEc2Instance = async () => {
