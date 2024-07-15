@@ -43,6 +43,7 @@ const stopEc2Instance = async () => {
   const res = await fetch(
     "https://getactiverminecraftserver-ykuqto64rq-uc.a.run.app",
   );
+  if (res.status === 404) throw new Error('No active server exists.')
   const { version, script, id } = await res.json();
 
   await sendDiscordMessage(
