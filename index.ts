@@ -51,7 +51,7 @@ const stopEc2Instance = async () => {
     `Starting ${id}@${version} server...`,
     1479403,
   );
-  const server = spawn(`${process.argv[2]}/${id}/${script}`, {
+  const server = spawn('bahs', [`${process.argv[2]}/${id}/${script}`], {
     cwd: `${process.argv[2]}/${id}/`,
   });
 
